@@ -3,8 +3,8 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to database"
+  puts "4. Load the list from the database"
   puts "9. Exit" 
 end
 
@@ -65,7 +65,9 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "What would you like to call the database?"
+  @database_name = gets.chomp
+  file = File.open(@database_name, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -74,7 +76,9 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students
+  puts "What file would you like to read?"
+  filename = gets.chomp
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
